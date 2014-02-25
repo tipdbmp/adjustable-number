@@ -5,6 +5,12 @@ Currently requires jQuery to be present, jqLite will not suffice.
 
 ### Usage
 
+Import the module:
+```js
+angular.module('app', ['adjustable-number'])
+```
+
+Instantiate the directive:
 ```html
 <adjustable-number
     num="<model.value>"

@@ -1,0 +1,24 @@
+.numy
+{
+}
+
+.shorty
+{
+    width: 60px;
+}
+
+.bigish
+{
+    font-size: 16pt;
+}
+
+.blue-underline
+{
+    color: blue;
+    border-bottom: 1px dashed blue;
+}
+
+.numy, .blue-underline
+{
+    cursor: col-resize;
+}

@@ -3,6 +3,7 @@ angular.module('app', ['adjustable-number'])
 {
     $scope.my = {};
     $scope.my.cookies_count = 2;
+    $scope.other= 1;
 
     $scope.calories = function()
     {

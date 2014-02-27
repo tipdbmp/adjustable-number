@@ -1,3 +1,8 @@
+html, body
+{
+    height:  100%;
+}
+
 .numy
 {
 }
@@ -18,7 +23,3 @@
     border-bottom: 1px dashed blue;
 }
 
-.numy, .blue-underline
-{
-    cursor: col-resize;
-}

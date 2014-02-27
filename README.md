@@ -1,7 +1,6 @@
 # Adjustable number - an AngularJS directive
 
 A small subset of the functionality of the [tangle.js](http://worrydream.com/Tangle/) wrapped into an angularjs directive.
-Currently requires jQuery to be present, jqLite will not suffice.
 
 ### Usage
 
@@ -20,6 +19,7 @@ Instantiate the directive:
     speed="[integer|smaller values adjusts faster, defaults to 3]"
     numclass="[string|this value is set as the class attribute for the number]"
     inputclass="[string|this value is set as the class attribute for the input (when not in adjustment mode)]"
+    cursor="[string|default col-resize]"
 >
     [ optional content ]
 </adjustable-number>

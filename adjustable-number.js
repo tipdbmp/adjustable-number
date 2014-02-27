@@ -15,45 +15,46 @@ angular.module('adjustable-number', [])
 
     },
     transclude: true,
-    template: '<span                             ng-show="in_adjustable_mode" ng-dblclick="in_adjustable_mode=!in_adjustable_mode; _input_select_text();"                            class="{{numclass}}">{{num}}</span>'
-            + '<input type="text" ng-model="num" ng-hide="in_adjustable_mode" ng-dblclick="in_adjustable_mode=!in_adjustable_mode; _input_check_valid();" ng-change="_input_limit()" class="{{inputclass}}">'
-            + '<span ng-transclude></span>'
+    template: '<span ng-dblclick="in_adjustable_mode=!in_adjustable_mode; _input_select_text(); _input_check_valid();">'
+            +     '<span                             ng-show="in_adjustable_mode"                            class="{{numclass}}">{{num}}</span>'
+            +     '<input type="text" ng-model="num" ng-hide="in_adjustable_mode" ng-change="_input_limit()" class="{{inputclass}}">'
+            +     '<span ng-transclude></span>'
+            + '</span>'
             ,
     link: function(scope, element, attrs)
     {
         var step         = parseInt(attrs.step, 10) || 1;
-        var min_value    = attrs.min   || 1;
-        var max_value    = attrs.max   || 100;
-        var adjust_speed = attrs.speed || 3;
-        var body         = angular.element('body');
-        var input, input_len;
+        var min_value    = attrs.min    || 1;
+        var max_value    = attrs.max    || 100;
+        var adjust_speed = attrs.speed  || 3;
+        var cursor       = attrs.cursor || 'col-resize';
+//        var body         = angular.element('body');
+        var body         = angular.element(document.getElementsByTagName('body')[0]);
         scope.in_adjustable_mode = true;
-        scope.numtip = scope.numtip || '';
+//        scope.numtip = scope.numtip || '';
 
-        scope._input_select_text = function()
-        {
-            var input = element.find('input');
-            $timeout(function()
-            {
-                input.focus().select();
-            }, 0);
-        };
+        angular.element(element.children()[0]).css('cursor', cursor);
+//        console.log(angular.element(angular.element(element.children()[0]).children()[1]));
 
         element
-        .mousedown(function(mouse_down_event)
+//        .mousedown(function(mouse_down_event)
+        .on('mousedown', function(mouse_down_event)
         {
             var num          = parseInt(scope.num, 10);
             var prev_mousex  = mouse_down_event.pageX;
             var move_counter = 0;
 
             $document
-            .mousemove(function(mouse_move_event)
+//            .mousemove(function(mouse_move_event)
+            .on('mousemove', function(mouse_move_event)
             {
                 var current_mousex = mouse_move_event.pageX;
                 var mouse_dx       = current_mousex - prev_mousex;
 
                 body.css('user-select', 'none');
-                body.css('cursor', 'col-resize');
+                body.css('-moz-user-select', 'none');
+                body.css('-webkit-user-select', 'none');
+                body.css('cursor', cursor);
 
                 move_counter++;
 
@@ -75,9 +76,12 @@ angular.module('adjustable-number', [])
 
                 prev_mousex = current_mousex;
             })
-            .mouseup(function()
+//            .mouseup(function()
+            .on('mouseup', function()
             {
                 body.css('user-select', 'text');
+                body.css('-moz-user-select', 'text');
+                body.css('-webkit-user-select', 'text');
                 body.css('cursor', '');
                 $document.unbind('mousemove');
                 $document.unbind('mouseup');
@@ -85,6 +89,18 @@ angular.module('adjustable-number', [])
             ;
         })
         ;
+
+        scope._input_select_text = function()
+        {
+//            var input = element.find('input');
+//            var input = angular.element(angular.element(element.children()[0]).children()[1]);
+            var input = angular.element(element.children()[0]).children()[1];
+            $timeout(function()
+            {
+//                input.focus().select();
+                input.focus();
+            }, 0);
+        };
 
         scope._input_limit = function()
         {

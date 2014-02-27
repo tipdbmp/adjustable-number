@@ -36,6 +36,10 @@ angular.module('adjustable-number', [])
         angular.element(element.children()[0]).css('cursor', cursor);
 //        console.log(angular.element(angular.element(element.children()[0]).children()[1]));
 
+//        var input = element.find('input');
+//        var input = angular.element(angular.element(element.children()[0]).children()[1]);
+        var input = angular.element(element.children()[0]).children()[1];
+
         element
 //        .mousedown(function(mouse_down_event)
         .on('mousedown', function(mouse_down_event)
@@ -90,11 +94,20 @@ angular.module('adjustable-number', [])
         })
         ;
 
+        angular.element(input).on('keypress', function(event)
+        {
+            if (event.keyCode === 13) // Enter key
+            {
+                scope._input_check_valid();
+                scope.$apply(function()
+                {
+                    scope.in_adjustable_mode = !scope.in_adjustable_mode;
+                });
+            }
+        });
+
         scope._input_select_text = function()
         {
-//            var input = element.find('input');
-//            var input = angular.element(angular.element(element.children()[0]).children()[1]);
-            var input = angular.element(element.children()[0]).children()[1];
             $timeout(function()
             {
 //                input.focus().select();

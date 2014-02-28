@@ -31,6 +31,11 @@ angular.module('adjustable-number', [])
 //        var body         = angular.element('body');
         var body         = angular.element(document.getElementsByTagName('body')[0]);
         scope.in_adjustable_mode = true;
+
+        if (scope.num !== 0)
+        {
+            scope.num = scope.num || min_value;
+        }
 //        scope.numtip = scope.numtip || '';
 
         angular.element(element.children()[0]).css('cursor', cursor);
